@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+// import 'reseter.css'
 import App from './App'
-import 'reseter.css'
 import './index.css'
 
 

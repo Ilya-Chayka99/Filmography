@@ -1,0 +1,31 @@
+.hed{
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.appMenu ul{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+    text-align: center;
+
+}
+.appMenu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.hed h1{
+    margin: 0;
+}
+.nav{
+    text-decoration: none;
+    margin-right: 30px;
+}
