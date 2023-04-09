@@ -1,0 +1,35 @@
+.card{
+
+    display: flex;
+    flex-direction: column;
+    color:white ;
+    width: 250px;
+    align-items: center;
+    margin: 10px 40px 10px 5px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+.card h2{
+    font-size: 20px;
+}
+.card span{
+    font-size: 12px;
+}
+.card img{
+    width: 200px;
+}
+.btns{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.card button{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.com{
+    display: none;
+}
+.will{
+    display: none;
+}
