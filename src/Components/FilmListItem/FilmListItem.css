@@ -6,7 +6,7 @@
     width: 250px;
     align-items: center;
     margin: 10px 40px 10px 5px;
-    border: 1px solid white;
+    /*border: 1px solid white;*/
     cursor: pointer;
 }
 .card h2{

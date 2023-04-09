@@ -2,39 +2,44 @@ import './Filtress.css'
 import {useEffect, useState} from 'react';
 import { v4 as uuidv4 } from 'uuid'
 import {useDispatch,useSelector} from 'react-redux'
-import {filmFiltor} from "../FilmsList/filmSlice.jsx";
+import {filmFiltor,filmSortAB,filmSortRete,filmSortYearN,filmSortYearL} from "../FilmsList/filmSlice.jsx";
 
-const dispatch = useDispatch();
+
 
 const Filtress = () => {
+    const dispatch = useDispatch();
     const [filmName, setFilmName] = useState('');
     const [filmDer, setFilmDer] = useState('');
     const [filmYear, setFilmYear] = useState('');
     const [filmRate, setFilmRate] = useState('');
-    useEffect(()=>{
-        dispatch(filmFiltor({name:"sss"}))
-    },[])
 
     const onSubmitHandler = (e) => {
+        console.log(e.target.title.value)
         e.preventDefault();
-
+        dispatch(filmFiltor({name:filmName,der:filmDer,year:filmYear,rate:filmRate}))
         setFilmName('');
         setFilmDer('');
         setFilmYear('');
         setFilmRate('');
     }
-
-
+    const reset = ()=>{
+        setFilmName('');
+        setFilmDer('');
+        setFilmYear('');
+        setFilmRate('');
+    }
     return (
         <div>
             <div className="filtr">
                 <h2>Сортировка</h2>
                 <div className="btnfil">
-                    <button id="abz">По алфавиту</button>
+                    <button id="abz" onClick={()=>dispatch(filmSortAB())}>По алфавиту</button>
                     <br/>
-                    <button id="rateOtz">По оценки отзыва</button>
+                    <button id="rateOtz" onClick={()=>dispatch(filmSortRete())}>По оценки на кинопоиске</button>
                     <br/>
-                    <button id="date">По дате добавления</button>
+                    <button id="date" onClick={()=>dispatch(filmSortYearN())} >По году релиза(сначала новые)</button>
+                    <br/>
+                    <button id="date" onClick={()=>dispatch(filmSortYearL())} >По году релиза(сначала старые)</button>
                 </div>
             </div>
             <br/>
@@ -59,7 +64,7 @@ const Filtress = () => {
                 </div>
                 <br/>
                 <button type='submit' className='btn'>Фильтровать</button>
-                <button type="reset">Очистить</button>
+                <button type="reset" onClick={reset}>Очистить</button>
             </form>
 
         </div>

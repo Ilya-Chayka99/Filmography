@@ -7,8 +7,8 @@ const  FilmListItem=({name, description,year,poster,rating,id,filmAddCom,filmAdd
             <span>{year} | {rating.kp}</span>
             <span>{description.slice(0,100)}...</span>
             <div className="btns">
-                <button onClick={filmAddCom} className={classNameC}>Просмотрено</button>
-                <button onClick={filmAddWil} className={classNameW}>Смотреть позже</button>
+                <button onClick={classNameC===""?filmAddCom:filmAddWil} className={classNameW}>Просмотрено</button>
+                <button onClick={classNameW===""?filmAddWil:filmAddCom} className={classNameC}>Смотреть позже</button>
             </div>
         </div>
     )

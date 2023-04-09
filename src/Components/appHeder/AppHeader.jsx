@@ -6,7 +6,7 @@ const AppHeader = () => {
 
     return(
         <header className="hed">
-            <img src={logo} alt="logo" className="logo"/>
+            {/*<img src={logo} alt="logo" className="logo"/>*/}
             <nav className="appMenu">
                 <ul>
                     <li>

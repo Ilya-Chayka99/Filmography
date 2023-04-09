@@ -36,8 +36,55 @@ const filmsSlice = createSlice({
         },
         filmFiltor:(state,action) =>{
             state.filmsFiltr = state.films.filter(item=>(
-                item.name === action.payload.name
+                item.name.includes(action.payload.name)&&
+                    item.rating.kp>=action.payload.rate&&
+                    item.year.toString().includes(action.payload.year)
+
             ))
+        },
+        filmSortAB:(state,action)=>{
+            state.filmsFiltr = state.filmsFiltr.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        },
+        filmSortRete:(state,action)=>{
+            state.filmsFiltr = state.filmsFiltr.sort((a, b) => {
+                if (a.rating.kp < b.rating.kp) {
+                    return 1;
+                }
+                if (a.rating.kp > b.rating.kp) {
+                    return -1;
+                }
+                return 0;
+            });
+        },
+        filmSortYearN:(state,action)=>{
+            state.filmsFiltr = state.filmsFiltr.sort((a, b) => {
+                if (a.year < b.year) {
+                    return 1;
+                }
+                if (a.year > b.year) {
+                    return -1;
+                }
+                return 0;
+            });
+        },
+        filmSortYearL:(state,action)=>{
+            state.filmsFiltr = state.filmsFiltr.sort((a, b) => {
+                if (a.year < b.year) {
+                    return -1;
+                }
+                if (a.year > b.year) {
+                    return 1;
+                }
+                return 0;
+            });
         }
 
     },
@@ -62,9 +109,12 @@ export default reducer;
 
 
 export const {
-    filmsFetching,
+    filmSortAB,
     filmFiltor,
     filmAddWill,
     filmAddComplete,
+    filmSortRete,
+    filmSortYearN,
+    filmSortYearL,
     filmDeleted
 } = actions;
