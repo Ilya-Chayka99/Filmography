@@ -1,47 +1,45 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {useHttp} from "../hook/http.hook.jsx";
-
+import {apiSlice} from "../api/apiSlice.jsx";
 
 
 const initialState = {
-    filmsLoadingStatus: 'idle',
-    films: [],
+    films:[],
     filmsFiltr: [],
     filmsComplete:[],
     filmsWill:[],
     filmSinglPage:{}
 };
 
-export const fetchFilms = createAsyncThunk(
-    'films/fetchFilms',
-    () => {
-        const {request} = useHttp();
-        return  request('https://api.kinopoisk.dev/v1/movie?selectFields=id&selectFields=name&selectFields=year&selectFields=description&selectFields=rating&selectFields=poster&page=1&limit=10');
-    }
-);
+// export const fetchFilms = createAsyncThunk(
+//     'films/fetchFilms',
+//     () => {
+//         const {request} = useHttp();
+//         return  request('https://api.kinopoisk.dev/v1/movie?selectFields=id&selectFields=name&selectFields=year&selectFields=description&selectFields=rating&selectFields=poster&page=1&limit=10');
+//     }
+// );
 const filmsSlice = createSlice({
     name: 'films',
     initialState,
     reducers: {
-        filmDeleted: (state, action) => {
-            state.films = state.films.filter(item=>item.id !== action.payload)
+        filmLoad: (state,action)=>{
+
         },
         filmSinglePage: (state, action) => {
             state.filmSinglPage = action.payload;
-        },
-        filmAddCookies: (state, action) => {
-            state.films = action.payload;
-            state.filmsFiltr = state.films;
         },
         filmAddComplete:(state,action) =>{
             if(state.filmsWill.includes(action.payload))
                 state.filmsWill=state.filmsWill.filter(item=>item!==action.payload)
             state.filmsComplete.push(action.payload);
+            localStorage.setItem("Will",JSON.stringify(state.filmsWill));
+            localStorage.setItem("Com",JSON.stringify(state.filmsComplete));
         },
         filmAddWill:(state,action) =>{
             if(state.filmsComplete.includes(action.payload))
                 state.filmsComplete=state.filmsComplete.filter(item=>item!==action.payload)
             state.filmsWill.push(action.payload)
+            localStorage.setItem("Will",JSON.stringify(state.filmsWill));
+            localStorage.setItem("Com",JSON.stringify(state.filmsComplete));
         },
         filmFiltor:(state,action) =>{
             state.filmsFiltr = state.films.filter(item=>(
@@ -96,19 +94,29 @@ const filmsSlice = createSlice({
         }
 
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchFilms.pending, state => {state.filmsLoadingStatus = 'loading'})
-            .addCase(fetchFilms.fulfilled, (state, action) => {
-                state.filmsLoadingStatus = 'idle';
-                state.films = action.payload.docs;
-                state.filmsFiltr = state.films;
-            })
-            .addCase(fetchFilms.rejected, state => {
-                state.filmsLoadingStatus = 'error';
-            })
-            .addDefaultCase(() => {})
+    extraReducers:(builder)=>{
+        builder.addMatcher(apiSlice.endpoints.getFilms.matchFulfilled,(state,{payload})=>{
+            state.films=payload.docs;
+            state.filmsFiltr=state.films;
+            if(localStorage.getItem("Will") && localStorage.getItem("Com")){
+                state.filmsWill=(JSON.parse(localStorage.getItem("Will"))) ;
+                state.filmsComplete=(JSON.parse(localStorage.getItem("Com")) );
+            }
+        })
     }
+    // extraReducers: (builder) => {
+    //     builder
+    //         .addCase(fetchFilms.pending, state => {state.filmsLoadingStatus = 'loading'})
+    //         .addCase(fetchFilms.fulfilled, (state, action) => {
+    //             state.filmsLoadingStatus = 'idle';
+    //             state.films = action.payload.docs;
+    //             state.filmsFiltr = state.films;
+    //         })
+    //         .addCase(fetchFilms.rejected, state => {
+    //             state.filmsLoadingStatus = 'error';
+    //         })
+    //         .addDefaultCase(() => {})
+    // }
 });
 
 const {actions, reducer} = filmsSlice;
@@ -125,6 +133,5 @@ export const {
     filmSortYearN,
     filmSortYearL,
     filmSinglePage,
-    filmAddCookies,
-    filmDeleted
+    filmLoad
 } = actions;

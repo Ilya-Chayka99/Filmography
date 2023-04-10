@@ -1,5 +1,5 @@
 
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import './App.css'
 import AppHeader from "./Components/appHeder/AppHeader.jsx";
 import MainPage from "./Components/page/MainPage.jsx";
