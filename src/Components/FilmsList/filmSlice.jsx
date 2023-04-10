@@ -2,12 +2,14 @@ import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {useHttp} from "../hook/http.hook.jsx";
 
 
+
 const initialState = {
     filmsLoadingStatus: 'idle',
     films: [],
     filmsFiltr: [],
     filmsComplete:[],
-    filmsWill:[]
+    filmsWill:[],
+    filmSinglPage:{}
 };
 
 export const fetchFilms = createAsyncThunk(
@@ -24,6 +26,13 @@ const filmsSlice = createSlice({
         filmDeleted: (state, action) => {
             state.films = state.films.filter(item=>item.id !== action.payload)
         },
+        filmSinglePage: (state, action) => {
+            state.filmSinglPage = action.payload;
+        },
+        filmAddCookies: (state, action) => {
+            state.films = action.payload;
+            state.filmsFiltr = state.films;
+        },
         filmAddComplete:(state,action) =>{
             if(state.filmsWill.includes(action.payload))
                 state.filmsWill=state.filmsWill.filter(item=>item!==action.payload)
@@ -39,7 +48,6 @@ const filmsSlice = createSlice({
                 item.name.includes(action.payload.name)&&
                     item.rating.kp>=action.payload.rate&&
                     item.year.toString().includes(action.payload.year)
-
             ))
         },
         filmSortAB:(state,action)=>{
@@ -116,5 +124,7 @@ export const {
     filmSortRete,
     filmSortYearN,
     filmSortYearL,
+    filmSinglePage,
+    filmAddCookies,
     filmDeleted
 } = actions;

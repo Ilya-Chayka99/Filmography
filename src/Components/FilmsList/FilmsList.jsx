@@ -2,7 +2,7 @@ import './FilmsList.css'
 import {useEffect} from "react";
 import Spinner from "../Spinner/Spinner.jsx";
 import {useDispatch,useSelector} from 'react-redux'
-import {filmAddWill, fetchFilms,filmAddComplete} from './filmSlice.jsx';
+import {filmAddWill, fetchFilms,filmAddComplete,filmAddCookies} from './filmSlice.jsx';
 import FilmListItem from '../FilmListItem/FilmListItem.jsx'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,13 +10,22 @@ import { v4 as uuidv4 } from 'uuid'
 const FilmsList = () => {
   const dispatch = useDispatch();
   const Films = useSelector(state => state.films.filmsFiltr);
+  const FilmCookies = useSelector(state => state.films.films);
   const FilmsC = useSelector(state => state.films.filmsComplete);
   const FilmsW = useSelector(state => state.films.filmsWill);
   const heroesLoadingStatus = useSelector(state => state.films.filmsLoadingStatus);
 
   useEffect(() => {
-    dispatch(fetchFilms())
+    if(!localStorage.getItem('films')){
+      dispatch(fetchFilms())
+      console.log(2)
+    }
+    else{
+      dispatch(filmAddCookies(JSON.parse( localStorage.getItem('films'))))
+      console.log(1)
+    }
   }, [])
+
 
   if (heroesLoadingStatus === "loading") {
     return <Spinner/>;
@@ -35,11 +44,13 @@ const FilmsList = () => {
           <h5 className="text-center mt-5">Фильмов пока нет</h5>
       )
     }
-    return arr.map(({id,...props}) => {
+    return arr.map(({...props}) => {
+      const {id} = props
       return (
           <FilmListItem
               key={uuidv4()}
-              {...props} filmAddCom={()=>filmAddCom(id)}
+              {...props}
+              filmAddCom={()=>filmAddCom(id)}
               filmAddWil={()=>filmAddWil(id)}
               classNameC={FilmsC.includes(id)?"com":""}
               classNameW={FilmsW.includes(id)?"will":""}

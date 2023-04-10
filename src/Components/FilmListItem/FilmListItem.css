@@ -7,7 +7,7 @@
     align-items: center;
     margin: 10px 40px 10px 5px;
     /*border: 1px solid white;*/
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 .card h2{
     font-size: 20px;
@@ -17,6 +17,7 @@
 }
 .card img{
     width: 200px;
+    cursor: pointer;
 }
 .btns{
     width: 100%;

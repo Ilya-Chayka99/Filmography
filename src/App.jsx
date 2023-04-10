@@ -1,21 +1,22 @@
 
-import {BrowserRouter as Router,Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './App.css'
 import AppHeader from "./Components/appHeder/AppHeader.jsx";
-import FilmsList from "./Components/FilmsList/FilmsList.jsx";
-import Filtress from "./Components/Filtress/Filtress.jsx";
+import MainPage from "./Components/page/MainPage.jsx";
+import SinglePageFilm from "./Components/page/SinglePageFilm.jsx";
 function App() {
   return (
-      <Router>
           <main className="App">
               <AppHeader/>
-              <section>
-                  <Filtress/>
-                  <FilmsList/>
-              </section>
+
+              <Routes>
+                  <Route path='/' element={<MainPage/>} />
+                  <Route path='/film/:filmId' element={<SinglePageFilm/>} />
+
+              </Routes>
 
           </main>
-      </Router>
+
 
   )
 }
