@@ -5,6 +5,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import {filmAddWill,filmAddComplete,filmLoad} from './filmSlice.jsx';
 import FilmListItem from '../FilmListItem/FilmListItem.jsx'
 import { v4 as uuidv4 } from 'uuid'
+import {useEffect} from "react";
 
 const FilmsList = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ const FilmsList = () => {
       isLoading,
       isError
   } =useGetFilmsQuery();
-  
   if (isLoading||isFetching) {
     return <Spinner/>;
   } else if (isError) {
@@ -29,27 +29,27 @@ const FilmsList = () => {
   const filmAddWil = (id)=>{
     dispatch(filmAddWill(id));
   }
-  const renderHeroesList = (arr) => {
+  const renderFilmsList = (arr) => {
     if (arr.length === 0) {
       return (
           <h5 className="text-center mt-5">Фильмов пока нет</h5>
       )
     }
-    return arr.map(({...props}) => {
+    return arr.map(({...props},i) => {
       const {id} = props
       return (
           <FilmListItem
               key={uuidv4()}
               {...props}
-              filmAddCom={()=>filmAddCom(id)}
-              filmAddWil={()=>filmAddWil(id)}
-              classNameC={FilmsC.includes(id)?"com":""}
-              classNameW={FilmsW.includes(id)?"will":""}
+              filmAddCom={()=>filmAddCom(arr[i])}
+              filmAddWil={()=>filmAddWil(arr[i])}
+              classNameC={FilmsC.filter(item=>item.id===id).length!==0?"com":""}
+              classNameW={FilmsW.filter(item=>item.id===id).length!==0?"will":""}
           />
       )
     })
   }
-  const elements = renderHeroesList(Films);
+  const elements = renderFilmsList(Films);
   return (
       <div className='cards'>
         {elements}

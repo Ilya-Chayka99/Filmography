@@ -6,7 +6,6 @@ const  FilmListItem=({name, description,year,poster,rating,id,filmAddCom,filmAdd
     const dispatch = useDispatch();
     const {films} = useSelector(state => state.films)
     const redirectToSingl=(id)=>{
-        console.log(films)
         dispatch(filmSinglePage(films.filter(item=>item.id===id)));
     }
     return(
