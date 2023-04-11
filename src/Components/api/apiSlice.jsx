@@ -10,7 +10,7 @@ export  const apiSlice = createApi({
     }),
     endpoints: builder =>({
         getFilms:builder.query({
-            query: (params)=>`?selectFields=id&selectFields=name&selectFields=year&selectFields=description&selectFields=rating&selectFields=poster&page=1&limit=10`
+            query: (params)=>`?selectFields=id&selectFields=name&selectFields=year&selectFields=description&selectFields=rating&selectFields=poster&page=1&limit=100`
         }),
         getFilmsID:builder.query({
             query: (params)=>`/${params.id}`

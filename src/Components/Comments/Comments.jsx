@@ -1,6 +1,4 @@
-import FilmListItem from "../FilmListItem/FilmListItem.jsx";
-import {v4 as uuidv4} from "uuid";
-
+import './Comments.css'
 
 const Comments = ({comments})=>{
     const renderFilmMyList = (arr) => {
@@ -13,7 +11,12 @@ const Comments = ({comments})=>{
 
             return (
                <>
-                    <p>{props.coment.comDis}</p>
+                   <div className="comen">
+                       <h2>{props.coment.comName}</h2>
+                       <p>{props.coment.comDis}</p>
+                       <p>Оценка: {props.coment.comRate}</p>
+                   </div>
+
                </>
             )
         })
@@ -23,7 +26,6 @@ const Comments = ({comments})=>{
     return(
         <>
             {elements}
-            <button>Добавить Комментарий</button>
         </>
     )
 }

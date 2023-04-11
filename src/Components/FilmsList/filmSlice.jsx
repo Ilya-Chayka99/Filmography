@@ -23,6 +23,9 @@ const filmsSlice = createSlice({
     initialState,
     reducers: {
         filmLoadComments: (state,action)=>{
+            if(localStorage.getItem("Comments")){
+                state.commentsFilm=(JSON.parse(localStorage.getItem("Comments")) );
+            }
             state.commentsFilm.push(action.payload);
             localStorage.setItem("Comments",JSON.stringify(state.commentsFilm));
         },
@@ -30,18 +33,32 @@ const filmsSlice = createSlice({
             state.filmSinglPage = action.payload;
         },
         filmAddComplete:(state,action) =>{
-            if(state.filmsWill.includes(action.payload))
-                state.filmsWill=state.filmsWill.filter(item=>item!==action.payload)
+            if(localStorage.getItem("Will") && localStorage.getItem("Com")){
+                state.filmsWill=(JSON.parse(localStorage.getItem("Will"))) ;
+                state.filmsComplete=(JSON.parse(localStorage.getItem("Com")) );
+            }
+            state.filmsWill=state.filmsWill.filter(item=>item.id!==action.payload.id)
+
             state.filmsComplete.push(action.payload);
             localStorage.setItem("Will",JSON.stringify(state.filmsWill));
             localStorage.setItem("Com",JSON.stringify(state.filmsComplete));
         },
         filmAddWill:(state,action) =>{
-            if(state.filmsComplete.includes(action.payload))
-                state.filmsComplete=state.filmsComplete.filter(item=>item!==action.payload)
+            if(localStorage.getItem("Will") && localStorage.getItem("Com")){
+                state.filmsWill=(JSON.parse(localStorage.getItem("Will"))) ;
+                state.filmsComplete=(JSON.parse(localStorage.getItem("Com")) );
+            }
+            state.filmsComplete=state.filmsComplete.filter(item=>item.id!==action.payload.id)
+
             state.filmsWill.push(action.payload)
             localStorage.setItem("Will",JSON.stringify(state.filmsWill));
             localStorage.setItem("Com",JSON.stringify(state.filmsComplete));
+        },
+        filmRemoveWill:(state,action) =>{
+            state.filmsWill=state.filmsWill.filter(item=>item.id!==action.payload)
+            state.filmsComplete=state.filmsComplete.filter(item=>item.id!==action.payload)
+            localStorage.setItem("Com",JSON.stringify(state.filmsComplete));
+            localStorage.setItem("Will",JSON.stringify(state.filmsWill));
         },
         filmFiltor:(state,action) =>{
             state.filmsFiltr = state.films.filter(item=>(
@@ -138,5 +155,6 @@ export const {
     filmSortYearN,
     filmSortYearL,
     filmSinglePage,
-    filmLoadComments
+    filmLoadComments,
+    filmRemoveWill
 } = actions;
