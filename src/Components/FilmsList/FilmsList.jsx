@@ -2,7 +2,7 @@ import './FilmsList.css'
 import {useGetFilmsQuery} from "../api/apiSlice.jsx";
 import Spinner from "../Spinner/Spinner.jsx";
 import {useDispatch,useSelector} from 'react-redux'
-import {filmAddWill,filmAddComplete,filmLoad} from './filmSlice.jsx';
+import {filmAddWill,filmAddComplete} from './filmSlice.jsx';
 import FilmListItem from '../FilmListItem/FilmListItem.jsx'
 import { v4 as uuidv4 } from 'uuid'
 import {useEffect} from "react";

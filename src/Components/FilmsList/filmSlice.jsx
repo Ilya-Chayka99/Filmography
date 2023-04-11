@@ -7,7 +7,8 @@ const initialState = {
     filmsFiltr: [],
     filmsComplete:[],
     filmsWill:[],
-    filmSinglPage:{}
+    filmSinglPage:{},
+    commentsFilm:[]
 };
 
 // export const fetchFilms = createAsyncThunk(
@@ -21,8 +22,9 @@ const filmsSlice = createSlice({
     name: 'films',
     initialState,
     reducers: {
-        filmLoad: (state,action)=>{
-
+        filmLoadComments: (state,action)=>{
+            state.commentsFilm.push(action.payload);
+            localStorage.setItem("Comments",JSON.stringify(state.commentsFilm));
         },
         filmSinglePage: (state, action) => {
             state.filmSinglPage = action.payload;
@@ -102,6 +104,9 @@ const filmsSlice = createSlice({
                 state.filmsWill=(JSON.parse(localStorage.getItem("Will"))) ;
                 state.filmsComplete=(JSON.parse(localStorage.getItem("Com")) );
             }
+            if(localStorage.getItem("Comments")){
+                state.commentsFilm=(JSON.parse(localStorage.getItem("Comments")) );
+            }
         })
     }
     // extraReducers: (builder) => {
@@ -133,5 +138,5 @@ export const {
     filmSortYearN,
     filmSortYearL,
     filmSinglePage,
-    filmLoad
+    filmLoadComments
 } = actions;
