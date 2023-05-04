@@ -9,7 +9,6 @@ export const useHttp = () => {
                 throw new Error(`Could not fetch ${url}, status: ${response.status}`);
             }
             const data = await response.json();
-            localStorage.setItem("films",JSON.stringify(data.docs))
             return data;
         } catch(e) {
             throw e;
