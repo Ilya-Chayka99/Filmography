@@ -1,5 +1,6 @@
 import './FilmsList.css'
 import {useGetFilmsQuery} from "../api/apiSlice.jsx";
+import {useGetFQuery} from "../api/apiTest.jsx";
 import Spinner from "../Spinner/Spinner.jsx";
 import {useDispatch,useSelector} from 'react-redux'
 import {filmAddWill,filmAddComplete} from './filmSlice.jsx';
@@ -20,6 +21,7 @@ const FilmsList = () => {
     isLoading,
     isError
   } =useGetFilmsQuery();
+
   if (isLoading||isFetching) {
     return <Spinner/>;
   } else if (isError) {
