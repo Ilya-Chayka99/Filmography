@@ -28,15 +28,16 @@ const CommendsForm = ({id})=>{
                 <div className='inp'>
                     <label>
                         Название коммнтария:
-                        <input type="text" name="title" value={comName} onChange={(e) => setComName(e.target.value)}/>
+                        <input type="text" name="title" value={comName} onChange={(e) => setComName(e.target.value)} required/>
                     </label>
                     <label>
                         Описание:
-                        <input type="text" name="director" value={comDis} onChange={(e) => setComDis(e.target.value)}/>
+                        <input type="text" name="director" value={comDis} onChange={(e) => setComDis(e.target.value)} required/>
                     </label>
                     <label>
                         Укажите рейтинг:
-                        <input type="number" name="rate" value={comRate} onChange={(e) => setComRate(e.target.value)}/>
+                        <input type="number" name="rate" value={comRate} onChange={(e) => setComRate(e.target.value)} required
+                        min={0} max={10}/>
                     </label>
                 </div>
                 <br/>

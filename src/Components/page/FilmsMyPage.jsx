@@ -26,7 +26,7 @@ const FilmMyPage = ()=>{
             const {id} = props
             return (
                 <>
-                    <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
+                    <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}} key={uuidv4()}>
                         <FilmListItem
                             key={uuidv4()}
                             {...props}

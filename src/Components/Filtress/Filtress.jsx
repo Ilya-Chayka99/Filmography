@@ -9,22 +9,19 @@ import {filmFiltor,filmSortAB,filmSortRete,filmSortYearN,filmSortYearL} from "..
 const Filtress = () => {
     const dispatch = useDispatch();
     const [filmName, setFilmName] = useState('');
-    const [filmDer, setFilmDer] = useState('');
     const [filmYear, setFilmYear] = useState('');
     const [filmRate, setFilmRate] = useState('');
 
     const onSubmitHandler = (e) => {
         console.log(e.target.title.value)
         e.preventDefault();
-        dispatch(filmFiltor({name:filmName,der:filmDer,year:filmYear,rate:filmRate}))
+        dispatch(filmFiltor({name:filmName,year:filmYear,rate:filmRate}))
         setFilmName('');
-        setFilmDer('');
         setFilmYear('');
         setFilmRate('');
     }
     const reset = ()=>{
         setFilmName('');
-        setFilmDer('');
         setFilmYear('');
         setFilmRate('');
     }
@@ -52,10 +49,6 @@ const Filtress = () => {
                     <label>
                         Год выпуска:
                         <input type="number" name="year" value={filmYear} onChange={(e) => setFilmYear(e.target.value)}/>
-                    </label>
-                    <label>
-                        Режиссер:
-                        <input type="text" name="director" value={filmDer} onChange={(e) => setFilmDer(e.target.value)}/>
                     </label>
                     <label>
                         Рэйтинг:

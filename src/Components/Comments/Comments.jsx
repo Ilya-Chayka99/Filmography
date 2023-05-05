@@ -1,4 +1,5 @@
 import './Comments.css'
+import {v4 as uuidv4} from "uuid";
 
 const Comments = ({comments})=>{
     const renderFilmMyList = (arr) => {
@@ -11,7 +12,7 @@ const Comments = ({comments})=>{
 
             return (
                <>
-                   <div className="comen">
+                   <div className="comen"  key={uuidv4()}>
                        <h2>{props.coment.comName}</h2>
                        <p>{props.coment.comDis}</p>
                        <p>Оценка: {props.coment.comRate}</p>
